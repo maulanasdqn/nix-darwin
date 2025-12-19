@@ -6,6 +6,10 @@
   ...
 }:
 {
+  imports = [
+    ./aliases.nix
+  ];
+
   home-manager.users.${username} = {
     programs.zsh = {
       enable = true;
@@ -13,7 +17,6 @@
       syntaxHighlighting.enable = true;
       enableCompletion = true;
 
-      # History settings
       history = {
         size = 10000;
         save = 10000;
@@ -23,18 +26,6 @@
         share = true;
       };
 
-      # Your aliases
-      shellAliases = {
-        c = "clear";
-        v = "nvim";
-        ls = "eza";
-        ll = "eza -la";
-        la = "eza -a";
-        lt = "eza --tree";
-        cat = "bat";
-      };
-
-      # Oh-My-Zsh configuration
       oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
@@ -46,8 +37,7 @@
         ];
       };
 
-      # Extra initialization
-      initExtra = ''
+      initContent = ''
         # Key bindings
         bindkey '^[[A' history-search-backward
         bindkey '^[[B' history-search-forward
@@ -59,13 +49,11 @@
       '';
     };
 
-    # Zoxide (better z)
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
     };
 
-    # FZF
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;

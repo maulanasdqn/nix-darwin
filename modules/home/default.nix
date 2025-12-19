@@ -7,17 +7,19 @@
 }:
 {
   imports = [
-    ./zsh.nix
-    ./neovim.nix
+    ./zsh
+    ./neovim
+    ./tmux
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "backup";
 
   home-manager.users.${username} = {
     home.stateVersion = "24.11";
-
-    # User packages
     home.packages = with pkgs; [
       ripgrep
       fd
@@ -27,16 +29,23 @@
       jq
       tree
       volta
-      ghostty
+      bun
+      deno
+      rustup
+      slack
     ];
 
-    # Volta environment
     home.sessionVariables = {
       VOLTA_HOME = "$HOME/.volta";
+      RUSTUP_HOME = "$HOME/.rustup";
+      CARGO_HOME = "$HOME/.cargo";
     };
 
     home.sessionPath = [
       "$HOME/.volta/bin"
+      "$HOME/.cargo/bin"
+      "$HOME/.bun/bin"
+      "$HOME/.deno/bin"
     ];
 
     programs.git = {

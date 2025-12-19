@@ -7,7 +7,12 @@
 }:
 {
   imports = [
-    ./system.nix
+    ./system
+    ./security
+    ./packages
+    ./defaults
+    ./fonts
+    ./homebrew
   ];
 
   users.users.${username} = {
