@@ -8,5 +8,6 @@
     ./cmp.nix
     ./ui.nix
     ./formatting.nix
+    ./claudecode.nix
   ];
 }

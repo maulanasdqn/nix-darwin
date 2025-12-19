@@ -3,6 +3,75 @@
   home-manager.users.${username}.programs.nixvim.plugins = {
     web-devicons.enable = true;
 
+    # Noice - better UI for messages, cmdline, and popupmenu
+    noice = {
+      enable = true;
+      settings = {
+        lsp = {
+          override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+            "cmp.entry.get_documentation" = true;
+          };
+          hover.enabled = true;
+          signature.enabled = true;
+          progress.enabled = true;
+        };
+        presets = {
+          bottom_search = true;
+          command_palette = true;
+          long_message_to_split = true;
+          inc_rename = false;
+          lsp_doc_border = true;
+        };
+        views = {
+          cmdline_popup = {
+            position = {
+              row = 5;
+              col = "50%";
+            };
+            size = {
+              width = 60;
+              height = "auto";
+            };
+          };
+          popupmenu = {
+            relative = "editor";
+            position = {
+              row = 8;
+              col = "50%";
+            };
+            size = {
+              width = 60;
+              height = 10;
+            };
+            border = {
+              style = "rounded";
+              padding = [ 0 1 ];
+            };
+            win_options = {
+              winhighlight = {
+                Normal = "Normal";
+                FloatBorder = "DiagnosticInfo";
+              };
+            };
+          };
+        };
+      };
+    };
+
+    # Required by noice
+    notify = {
+      enable = true;
+      settings = {
+        background_colour = "#000000";
+        fps = 60;
+        render = "default";
+        timeout = 3000;
+        top_down = true;
+      };
+    };
+
     nvim-tree = {
       enable = true;
       settings = {
