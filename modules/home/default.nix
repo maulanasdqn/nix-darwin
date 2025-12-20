@@ -17,6 +17,7 @@
     ./ssh
     ./sops
     ./ghostty
+    ./services
   ] ++ lib.optionals enableLaravel [
     ./laravel
   ];
