@@ -20,6 +20,7 @@
       "ghostty"
       "postman"
       "discord"
+      "raycast"
     ];
   };
 }
