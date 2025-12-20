@@ -15,6 +15,7 @@
     ./tmux
     ./docker
     ./ssh
+    ./sops
   ] ++ lib.optionals enableLaravel [
     ./laravel
   ];

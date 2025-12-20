@@ -23,6 +23,11 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -33,11 +38,18 @@
       home-manager,
       determinate,
       nixvim,
+      sops-nix,
       ...
     }:
     let
-      # Load user configuration from config.nix
-      config = import ./config.nix;
+      # Load user configuration
+      # Use config.local.nix if it exists (git-ignored), otherwise use config.nix
+      defaultConfig = import ./config.nix;
+      localConfigPath = ./config.local.nix;
+      config =
+        if builtins.pathExists localConfigPath
+        then defaultConfig // (import localConfigPath)
+        else defaultConfig;
 
       username = config.username;
       enableLaravel = config.enableLaravel;
@@ -45,8 +57,9 @@
 
       system = "aarch64-darwin";
       hostname = "mrscraper";
+      secretsFile = ./secrets/secrets.yaml;
       specialArgs = {
-        inherit username nixvim enableLaravel sshKeys;
+        inherit username nixvim enableLaravel sshKeys sops-nix secretsFile;
       };
     in
     {

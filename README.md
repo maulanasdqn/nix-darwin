@@ -173,6 +173,47 @@ Edit `config.nix` to customize your setup:
 | `enableLaravel` | bool | Enable PHP, Composer, MySQL, PostgreSQL, Redis |
 | `sshKeys` | list | SSH public keys for `~/.ssh/authorized_keys` |
 
+## Secrets Management
+
+Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) using age encryption.
+
+### Setup
+
+```bash
+# Your age key is at ~/.config/sops/age/keys.txt
+# Public key is in .sops.yaml
+
+# Edit secrets (will decrypt, open editor, re-encrypt)
+sops secrets/secrets.yaml
+```
+
+### Available Secrets
+
+Decrypted secrets are available at `~/.config/sops-nix/secrets/`:
+
+```bash
+cat ~/.config/sops-nix/secrets/github_token
+cat ~/.config/sops-nix/secrets/openai_api_key
+cat ~/.config/sops-nix/secrets/anthropic_api_key
+cat ~/.config/sops-nix/secrets/database_password
+```
+
+### Adding New Secrets
+
+1. Edit `secrets/secrets.yaml`:
+   ```bash
+   sops secrets/secrets.yaml
+   ```
+
+2. Add the secret to `modules/home/sops/default.nix`:
+   ```nix
+   secrets = {
+     my_new_secret = { };
+   };
+   ```
+
+3. Rebuild: `rebuild`
+
 ## Usage
 
 ```bash

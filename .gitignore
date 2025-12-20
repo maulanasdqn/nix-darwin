@@ -1,6 +1,6 @@
-# User configuration (contains personal settings)
-config.nix
-
 # Result symlinks
 result
 result-*
+
+# Local overrides (optional)
+config.local.nix
