@@ -189,13 +189,29 @@ sops secrets/secrets.yaml
 
 ### Available Secrets
 
-Decrypted secrets are available at `~/.config/sops-nix/secrets/`:
+| Secret | Location |
+|--------|----------|
+| `github_token` | `~/.config/sops-nix/secrets/github_token` |
+| `openai_api_key` | `~/.config/sops-nix/secrets/openai_api_key` |
+| `anthropic_api_key` | `~/.config/sops-nix/secrets/anthropic_api_key` |
+| `database_password` | `~/.config/sops-nix/secrets/database_password` |
+| `ssh_private_key` | `~/.ssh/id_ed25519` (symlinked) |
+
+### Adding Your SSH Private Key
 
 ```bash
-cat ~/.config/sops-nix/secrets/github_token
-cat ~/.config/sops-nix/secrets/openai_api_key
-cat ~/.config/sops-nix/secrets/anthropic_api_key
-cat ~/.config/sops-nix/secrets/database_password
+# Edit secrets (opens in $EDITOR)
+cd ~/.config/nix
+sops secrets/secrets.yaml
+
+# Replace the placeholder with your actual key:
+ssh_private_key: |
+  -----BEGIN OPENSSH PRIVATE KEY-----
+  your-actual-key-content-here
+  -----END OPENSSH PRIVATE KEY-----
+
+# Save and rebuild
+rebuild
 ```
 
 ### Adding New Secrets

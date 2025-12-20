@@ -24,6 +24,10 @@
         openai_api_key = { };
         anthropic_api_key = { };
         database_password = { };
+        ssh_private_key = {
+          path = "/Users/${username}/.ssh/id_ed25519";
+          mode = "0600";
+        };
       };
     };
   };
