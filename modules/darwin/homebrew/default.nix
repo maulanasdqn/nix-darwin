@@ -19,6 +19,7 @@
       "microsoft-edge"
       "ghostty"
       "postman"
+      "discord"
     ];
   };
 }
